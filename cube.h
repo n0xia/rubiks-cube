@@ -106,11 +106,11 @@ public:
 		}
 	}//----------------------------------------------
 
-	//==========Move Functions==========
+	//============Rotation Functions=============
 	int temp[3]; // temp vars
 	int ftemp;
-	
-	//====6 Base Clockwise Rotations====
+	//==========/=/ Face Rotations /=/===========
+	//-------------- Clockwise --------------
 	// Right Clockwise
 	void RC(){
 		for(int i = 0; i < 3; i++) temp[i] = F[i][2];
@@ -132,6 +132,7 @@ public:
 		R[1][2] = ftemp;
 	}
 
+	// Left Clockwise
 	void LC(){
 		for(int i = 0; i < 3; i++) temp[i] = F[i][0];
 		for(int i = 0; i < 3; i++) F[i][0] = U[i][0];
@@ -151,6 +152,7 @@ public:
 		L[1][2] = ftemp;
 	}
 
+	// Up Clockwise
 	void UC(){
 		for(int i = 0; i < 3; i++) temp[i] = F[0][i];
 		for(int i = 0; i < 3; i++) F[0][i] = R[0][i];
@@ -169,7 +171,8 @@ public:
 		U[2][1] = U[1][2];
 		U[1][2] = ftemp;
 	}
-
+	
+	// Down Clockwise
 	void DC(){
 		for(int i = 0; i < 3; i++) temp[i] = F[2][i];
 		for(int i = 0; i < 3; i++) F[2][i] = L[2][i];
@@ -189,6 +192,7 @@ public:
 		D[1][2] = ftemp;
 	}
 
+	// Front Clockwise
 	void FC(){
 		for(int i = 0; i < 3; i++) temp[i] = U[2][i];
 		for(int i = 0; i < 3; i++) U[2][i] = L[2-i][2];
@@ -208,6 +212,7 @@ public:
 		F[1][2] = ftemp;
 	}
 
+	// Back Clockwise
 	void BC(){
 		for(int i = 0; i < 3; i++) temp[i] = U[0][i];
 		for(int i = 0; i < 3; i++) U[0][i] = R[i][2];
@@ -226,29 +231,30 @@ public:
 		B[2][1] = B[1][2];
 		B[1][2] = ftemp;
 	}
-	//-------------------------------------
-
-	//====6 Base Counter-Clockwise Rotations====
+	//---- Counter-Clockwise ----
 	void RCC(){RC();RC();RC();}
 	void LCC(){LC();LC();LC();}
 	void UCC(){UC();UC();UC();}
 	void DCC(){DC();DC();DC();}
 	void FCC(){FC();FC();FC();}
 	void BCC(){BC();BC();BC();}
-	//-----------------------------------------
-
-	//====6 Base Double Rotations====
+	//---- Double Rotations ----
 	void R2(){RC();RC();}
 	void L2(){LC();LC();}
 	void U2(){UC();UC();}
 	void D2(){DC();DC();}
 	void F2(){FC();FC();}
 	void B2(){BC();BC();}
-
-
-	//-----------------------------------------
-	//=====================================================
-
+	//--------------------------
+	//==========/=/ Slice Rotations /=/==========
+	//---- Clockwise ----
+	void M(){
+		for(int i = 0; i < 3; i++) temp[i] = F[i][1];
+		for(int i = 0; i < 3; i++) F[i][1] = D[i][1];
+		for(int i = 0; i < 3; i++) D[i][1] = B[i][1];
+		for(int i = 0; i < 3; i++) B[i][1] = U[i][1];
+		for(int i = 0; i < 3; i++) U[i][1] = temp[i];
+	}
 
 
 
