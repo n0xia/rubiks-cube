@@ -248,12 +248,28 @@ public:
 	//--------------------------
 	//==========/=/ Slice Rotations /=/==========
 	//---- Clockwise ----
-	void M(){
+	void M(){ // Middle slice
 		for(int i = 0; i < 3; i++) temp[i] = F[i][1];
-		for(int i = 0; i < 3; i++) F[i][1] = D[i][1];
-		for(int i = 0; i < 3; i++) D[i][1] = B[i][1];
-		for(int i = 0; i < 3; i++) B[i][1] = U[i][1];
-		for(int i = 0; i < 3; i++) U[i][1] = temp[i];
+		for(int i = 0; i < 3; i++) F[i][1] = U[i][1];
+		for(int i = 0; i < 3; i++) U[i][1] = B[i][1];
+		for(int i = 0; i < 3; i++) B[i][1] = D[i][1];
+		for(int i = 0; i < 3; i++) D[i][1] = temp[i];
+	}
+
+	void E(){ // Equator slice
+		for(int i = 0; i < 3; i++) temp[i] = F[1][i];
+		for(int i = 0; i < 3; i++) F[1][i] = L[1][i];
+		for(int i = 0; i < 3; i++) L[1][i] = B[1][2-i];
+		for(int i = 0; i < 3; i++) B[1][2-i] = R[1][i];
+		for(int i = 0; i < 3; i++) R[1][i] = temp[i];
+	}
+
+	void S(){ //Standing slice (unfinished)
+		for(int i = 0; i < 3; i++) temp[i] = F[i][1];
+		for(int i = 0; i < 3; i++) F[i][1] = U[i][1];
+		for(int i = 0; i < 3; i++) U[i][1] = B[i][1];
+		for(int i = 0; i < 3; i++) B[i][1] = D[i][1];
+		for(int i = 0; i < 3; i++) D[i][1] = temp[i];
 	}
 
 
