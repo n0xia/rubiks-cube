@@ -11,8 +11,19 @@ int main(){
     system("sleep 1");
 
 
-	cube.M();
-	cube.Display();
-	system("sleep 0.5");
+	for(int i = 1; i <= 6; i++){
+		cube.RC();
+		cube.Display();
+    system("sleep 0.3");
+		cube.UC();
+		cube.Display();
+    system("sleep 0.3");
+		cube.RCC();
+		cube.Display();
+    system("sleep 0.3");
+		cube.UCC();
+		cube.Display();
+    system("sleep 0.3");
+	}
 
 }

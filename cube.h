@@ -264,15 +264,31 @@ public:
 		for(int i = 0; i < 3; i++) R[1][i] = temp[i];
 	}
 
-	void S(){ //Standing slice (unfinished)
-		for(int i = 0; i < 3; i++) temp[i] = F[i][1];
-		for(int i = 0; i < 3; i++) F[i][1] = U[i][1];
-		for(int i = 0; i < 3; i++) U[i][1] = B[i][1];
-		for(int i = 0; i < 3; i++) B[i][1] = D[i][1];
-		for(int i = 0; i < 3; i++) D[i][1] = temp[i];
+	void S(){ //Standing slice
+		for(int i = 0; i < 3; i++) temp[i] = U[1][i];
+		for(int i = 0; i < 3; i++) U[1][i] = L[2-i][1];
+		for(int i = 0; i < 3; i++) L[i][1] = D[1][i];
+		for(int i = 0; i < 3; i++) D[1][i] = R[2-i][1];
+		for(int i = 0; i < 3; i++) R[i][1] = temp[i];
 	}
-
-
+	//---- Counter-Clockwise ----
+	void MCC(){M();M();M();};
+	void ECC(){E();E();E();};
+	void SCC(){S();S();S();};
+	//---- Double ----
+	void M2(){M();M();}
+	void E2(){E();E();}
+	void S2(){S();S();}
+	//--------------------------
+	//==========/=/ Double Layer Rotations /=/==========
+	//---- Clockwise ----
+	void rC(){RC();MCC();};
+	void lC(){LC();M();};
+	void uC(){UC();ECC();};
+	void dC(){DC();E();};
+	void fC(){FC();S();};
+	void bC(){BC();SCC();};
+	
 
 
 
