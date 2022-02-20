@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+// Dependencies: iostream, string, vectors, sstream
 //----------colors----------
 #define WHITE "\e[1m"
 #define RED "\e[31m"
@@ -7,6 +8,8 @@ using namespace std;
 #define YELLOW "\e[1;30m"
 #define ORANGE "\e[33m"
 #define GREEN "\e[32m"
+//-------
+#define GRAY "\e[2;37m"
 //-----BG-----
 #define BGWHITE "\e[30m\e[1;47m"
 #define BGRED "\e[41m"
@@ -14,8 +17,10 @@ using namespace std;
 #define BGYELLOW "\e[1;40m"
 #define BGORANGE "\e[1;43m"
 #define BGGREEN "\e[42m"
-//----Null----
+//----Misc----
 #define Null "\e[0m"
+#define BOLD "\e[1m"
+#define UNDERLINED "\e[4m"
 //----------------------------
 
 class Cube{
@@ -64,7 +69,7 @@ public:
 		else if(color == 6) cout << GREEN << "■" << Null;
 	}
 	//---------------Display Cube-------------------
-	void Display(){
+	void DisplayCube(){
 		system("clear");
 		//Backside - Orange (Should be orange but is rendered yellow)
 		for(int i = 0; i < 3; i++){
@@ -106,10 +111,10 @@ public:
 		}
 	}//----------------------------------------------
 
-	//============Rotation Functions=============
+	//====/====//=Rotation Functions=//====/====//
 	int temp[3]; // temp vars
 	int ftemp;
-	//==========/=/ Face Rotations /=/===========
+	//=========/=/ Face Rotations /=/==========//
 	//-------------- Clockwise --------------
 	// Right Clockwise
 	void RC(){
@@ -246,7 +251,7 @@ public:
 	void F2(){FC();FC();}
 	void B2(){BC();BC();}
 	//--------------------------
-	//==========/=/ Slice Rotations /=/==========
+	//==========/=/ Slice Rotations /=/==========//
 	//---- Clockwise ----
 	void M(){ // Middle slice
 		for(int i = 0; i < 3; i++) temp[i] = F[i][1];
@@ -272,23 +277,178 @@ public:
 		for(int i = 0; i < 3; i++) R[i][1] = temp[i];
 	}
 	//---- Counter-Clockwise ----
-	void MCC(){M();M();M();};
-	void ECC(){E();E();E();};
-	void SCC(){S();S();S();};
+	void MCC(){M();M();M();}
+	void ECC(){E();E();E();}
+	void SCC(){S();S();S();}
 	//---- Double ----
 	void M2(){M();M();}
 	void E2(){E();E();}
 	void S2(){S();S();}
 	//--------------------------
-	//==========/=/ Double Layer Rotations /=/==========
-	//---- Clockwise ----
-	void rC(){RC();MCC();};
-	void lC(){LC();M();};
-	void uC(){UC();ECC();};
-	void dC(){DC();E();};
-	void fC(){FC();S();};
-	void bC(){BC();SCC();};
+	//==========/=/ Double Layer Rotations /=/==========//
+	//-------- Clockwise --------
+	void rC(){RC();MCC();}
+	void lC(){LC();M();}
+	void uC(){UC();ECC();}
+	void dC(){DC();E();}
+	void fC(){FC();S();}
+	void bC(){BC();SCC();}
+	//---- Counter-Clockwise ----
+	void rCC(){RCC();M();}
+	void lCC(){LCC();MCC();}
+	void uCC(){UCC();E();}
+	void dCC(){DCC();ECC();}
+	void fCC(){FCC();SCC();}
+	void bCC(){BCC();S();}
+	//------ Double turns -------
+	void r2(){R2();M2();}
+	void l2(){L2();M2();}
+	void u2(){U2();E2();}
+	void d2(){D2();E2();}
+	void f2(){F2();S2();}
+	void b2(){B2();S2();}
+	//==========/=/ Whole Cube Rotations /=/==========//
+	//-------- Clockwise --------
+	void X(){RC();LCC();MCC();}
+	void Y(){UC();DCC();ECC();}
+	void Z(){FC();BCC();S();}
+	//---- Counter-Clockwise ----
+	void XCC(){RCC();LC();M();}
+	void YCC(){UCC();DC();E();}
+	void ZCC(){FCC();BC();SCC();}
+	//------- Double Turns ------
+	void X2(){R2();L2();M2();}
+	void Y2(){U2();D2();E2();}
+	void Z2(){F2();B2();S2();}
+	//==============END OF TURN FUNCTIONS=============//
 	
+	void movePause(double seconds){ // Pause/Sleep function for Linux (bash)
+		stringstream convIntToString; // using stringstream to convert int
+		convIntToString << seconds;   // input to string so it can later
+		string sleepSeconds;          // be concatenated and turned into a
+		convIntToString >> sleepSeconds; // const char using c_str() STL
+		string sleepCommand = "sleep "; // function.
+		system((sleepCommand + sleepSeconds).c_str());
+	}
+
+	vector <string> Moves; // Each move is stored here
+	// function that separates each move from an input 
+	// string and inserts them into a vector
+	void Input(){
+		cout << "Seperate each rotation with Space, end input with Enter." << endl;
+		cout << "Input: ";
+		string input;
+		getline(cin, input, '\n');
+
+		stringstream ss;
+		ss << input;
+		string tempvar;
+		while(!ss.eof()){
+			ss >> tempvar;
+			Moves.push_back(tempvar);
+		}
+	}
+
+	void rotateCube(string Notation){ // Activating turn functions through notation;
+		//===/=/ Face Rotations /=/===//
+		//------ Clockwise ------
+			 if(Notation == "R") RC();
+		else if(Notation == "L") LC();
+		else if(Notation == "U") UC();
+		else if(Notation == "D") DC();
+		else if(Notation == "F") FC();
+		else if(Notation == "B") BC();
+		//------ Counter Clockwise ------
+		else if(Notation == "R'") RCC();
+		else if(Notation == "L'") LCC();
+		else if(Notation == "U'") UCC();
+		else if(Notation == "D'") DCC();
+		else if(Notation == "F'") FCC();
+		else if(Notation == "B'") BCC();
+		//------ Double ------
+		else if(Notation == "R2") R2();
+		else if(Notation == "L2") L2();
+		else if(Notation == "U2") U2();
+		else if(Notation == "D2") D2();
+		else if(Notation == "F2") F2();
+		else if(Notation == "B2") B2();
+		//===/=/ Double Layer Rotations /=/===//
+		else if(Notation == "r") rC();
+		else if(Notation == "l") lC();
+		else if(Notation == "u") uC();
+		else if(Notation == "d") dC();
+		else if(Notation == "f") fC();
+		else if(Notation == "b") bC();
+
+		else if(Notation == "r'") rCC();
+		else if(Notation == "l'") lCC();
+		else if(Notation == "u'") uCC();
+		else if(Notation == "d'") dCC();
+		else if(Notation == "f'") fCC();
+		else if(Notation == "b'") bCC();
+
+		else if(Notation == "r2") r2();
+		else if(Notation == "l2") l2();
+		else if(Notation == "u2") u2();
+		else if(Notation == "d2") d2();
+		else if(Notation == "f2") f2();
+		else if(Notation == "b2") b2();
+		//===/=/ Middle Slice Rotations /=/===//
+		//------ Clockwise ------
+		else if(Notation == "M") M();
+		else if(Notation == "E") E();
+		else if(Notation == "S") S();
+		//------ Counter Clockwise ------
+		else if(Notation == "M'") MCC();
+		else if(Notation == "E'") ECC();
+		else if(Notation == "S'") SCC();
+		//------ Double ------
+		else if(Notation == "M2") M2();
+		else if(Notation == "E2") E2();
+		else if(Notation == "S2") S2();
+		//===/=/ Whole Cube Rotations /=/===//
+		//------ Clockwise ------
+		else if(Notation == "X" || Notation == "x") X();
+		else if(Notation == "Y" || Notation == "y") Y();
+		else if(Notation == "Z" || Notation == "z") Z();
+		//------ Counter Clockwise ------
+		else if(Notation == "X'" || Notation == "x'") XCC();
+		else if(Notation == "Y'" || Notation == "y'") YCC();
+		else if(Notation == "Z'" || Notation == "z'") ZCC();
+		//------ Double ------
+		else if(Notation == "X2" || Notation == "x2") X2();
+		else if(Notation == "Y2" || Notation == "y2") Y2();
+		else if(Notation == "Z2" || Notation == "z2") Z2();
+	}
+
+	void DisplayNotation(int currentMove){
+		cout << BOLD << "Progress" << Null << ": ";
+		for(int i = 0; i < Moves.size(); i++){
+			if(i < currentMove) cout << GRAY << Moves[i] << Null << " ";
+			if(i == currentMove) cout << RED << UNDERLINED << Moves[i] << Null << " ";
+			if(i > currentMove) cout << BLUE << Moves[i] << Null << " ";
+		} cout <<endl;
+	}
+
+	//=====/=/=====<[MAIN DISPLAY FUNCTION]>=====/=/=====//
+	void Display(double sleepTime){
+		DisplayCube();
+		movePause(1);
+
+		for(int i = 0; i <= Moves.size(); i++){
+			if(i != Moves.size()){
+			rotateCube(Moves[i]);
+			DisplayCube();
+			DisplayNotation(i);
+			}
+			else {
+			DisplayCube();
+			DisplayNotation(i);
+			}
+			movePause(sleepTime);
+		}
+
+	}
 
 
 
