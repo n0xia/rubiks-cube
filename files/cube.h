@@ -425,11 +425,24 @@ public:
 		cout << BOLD << "Progress" << Null << ": ";
 		for(int i = 0; i < Moves.size(); i++){
 			if(i < currentMove) cout << GRAY << Moves[i] << Null << " ";
-			if(i == currentMove) cout << RED << UNDERLINED << Moves[i] << Null << " ";
+			if(i == currentMove) cout << UNDERLINED << RED << Moves[i] << Null << " ";
 			if(i > currentMove) cout << BLUE << Moves[i] << Null << " ";
 		} cout <<endl;
 	}
 
+	bool isCubeSolved(){
+		for(int i = 0; i < 3; i++){
+			for(int i2 = 0; i2 < 3; i2++){
+				if(R[i][i2] != 6 ) return false;
+				if(L[i][i2] != 3 ) return false;
+				if(U[i][i2] != 4 ) return false;
+				if(D[i][i2] != 1 ) return false;
+				if(F[i][i2] != 2 ) return false;
+				if(B[i][i2] != 5 ) return false;
+			}
+		}
+		return true;
+	}
 	//=====/=/=====<[MAIN DISPLAY FUNCTION]>=====/=/=====//
 	void Display(double sleepTime){
 		DisplayCube();
@@ -447,6 +460,60 @@ public:
 			}
 			movePause(sleepTime);
 		}
-
 	}
+	//=====/=/=====<[CYCLING FUNCTION]>=====/=/=====//
+	void Periodicity(double sleepTime){
+		DisplayCube();
+		movePause(1);
+		int cycle = 0;
+		if(sleepTime != 0){
+			while(true){
+				for(int i = 0; i < Moves.size(); i++){
+					rotateCube(Moves[i]);
+					DisplayCube();
+					DisplayNotation(i);
+					cout << "Cycles: " << cycle << endl;
+					movePause(sleepTime);
+				}
+				cycle++;
+				if(isCubeSolved()) break;
+			}
+			DisplayCube();
+			DisplayNotation(Moves.size());
+			cout << "Cycles: " << cycle << endl;
+		}
+		else{
+			while(true){
+				for(int i = 0; i < Moves.size(); i++){
+					rotateCube(Moves[i]);
+				}
+				cycle++;
+				if(isCubeSolved()) break;
+			}
+			DisplayCube();
+			DisplayNotation(Moves.size());
+			cout << "Cycles: " << cycle << endl;
+		}
+	}
+
+	void DisplayNormalTurns(){
+		double sleepTime;
+		system("clear");
+		cout << "Input ammount of seconds to pause between each move: "; cin >> sleepTime;
+		cin.ignore();
+		Input();
+		Display(sleepTime);
+	}
+
+	void DisplayPerodicity(){
+		double sleepTime;
+		system("clear");
+		cout << "Input ammount of seconds to pause between each move. " <<endl;
+		cout << "Enter \"0\" to instantly go through all cycles: "; cin >> sleepTime;
+		cout << "Input algorithm to count cycle periodicity to. " <<endl;
+		cin.ignore();
+		Input();
+		Periodicity(sleepTime);
+	}
+	
 };
