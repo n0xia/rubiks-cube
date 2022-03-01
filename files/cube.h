@@ -463,10 +463,10 @@ public:
 	}
 	//=====/=/=====<[CYCLING FUNCTION]>=====/=/=====//
 	void Periodicity(double sleepTime){
-		DisplayCube();
-		movePause(1);
 		int cycle = 0;
 		if(sleepTime != 0){
+			DisplayCube();
+			movePause(1);
 			while(true){
 				for(int i = 0; i < Moves.size(); i++){
 					rotateCube(Moves[i]);
@@ -490,9 +490,9 @@ public:
 				cycle++;
 				if(isCubeSolved()) break;
 			}
-			DisplayCube();
-			DisplayNotation(Moves.size());
-			cout << "Cycles: " << cycle << endl;
+			system("clear");
+			cout << "Cycles for" << endl;
+			for(int i = 0; i < Moves.size(); i++) cout << Moves[i] << " "; cout << ": " << cycle <<endl;
 		}
 	}
 
@@ -515,5 +515,5 @@ public:
 		Input();
 		Periodicity(sleepTime);
 	}
-	
+
 };

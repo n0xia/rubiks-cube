@@ -7,6 +7,11 @@ how stringstream handles spaces.
 
 
 ### [Features currently in the works]
+- Very Important: Add an option to input multiple algorithms into the
+periodicity function and have them all be calculated withou the cube
+being displayed since the function that checks if it's solved is flawless
+there's no need for it to be displayed anyway.
+
 - I noticed blinking on my own machine when the array for turns
 got really long. A good feature would be to create a slider of sorts, where
 the current turn moves to the center and is only surrounded by 3 turns
