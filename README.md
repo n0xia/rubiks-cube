@@ -17,10 +17,9 @@ got really long. A good feature would be to create a slider of sorts, where
 the current turn moves to the center and is only surrounded by 3 turns
 on both sides, as if it is sliding along the moveset. This would remove the
 blinking that is probably caused by the output of the entire array repeatedly.
-It would also add aesthetic value.
-- Making the input sequence aesthetically pleasing with box drawing UNICODE
-characters, and maybe some colored text.
 - For now the coloring is only supported on MacOS and Linux 
-(Terminals that use bash), and probably WSL. Maybe I'll add a batch version in
+(Terminals that use bash and zsh), and probably WSL. Maybe I'll add a batch version in
 the future, although the system("cls") might be a bit blinky since batch
 terminals are a bit slow.
+- Currently working on a generalized formula for calculating the periodicity of any
+algorithm without repeating it until the cube returns to its solved state.

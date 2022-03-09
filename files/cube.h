@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-// Dependencies: iostream, string, vectors, sstream
+// Dependencies: iostream, string, vector, sstream
 //----------colors----------
 #define WHITE "\e[1m"
 #define RED "\e[31m"
@@ -373,20 +373,21 @@ public:
 		else if(Notation == "F2") F2();
 		else if(Notation == "B2") B2();
 		//===/=/ Double Layer Rotations /=/===//
+		//------ Clockwise ------
 		else if(Notation == "r") rC();
 		else if(Notation == "l") lC();
 		else if(Notation == "u") uC();
 		else if(Notation == "d") dC();
 		else if(Notation == "f") fC();
 		else if(Notation == "b") bC();
-
+		//------ Counter Clockwise ------
 		else if(Notation == "r'") rCC();
 		else if(Notation == "l'") lCC();
 		else if(Notation == "u'") uCC();
 		else if(Notation == "d'") dCC();
 		else if(Notation == "f'") fCC();
 		else if(Notation == "b'") bCC();
-
+		//------ Double ------
 		else if(Notation == "r2") r2();
 		else if(Notation == "l2") l2();
 		else if(Notation == "u2") u2();
